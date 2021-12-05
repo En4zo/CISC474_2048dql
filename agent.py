@@ -1,11 +1,9 @@
 import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
 import numpy as np
 from copy import deepcopy
 import random
-import math
-import matplotlib.pyplot as plt
 import game
+
 
 DEPTH1 = 128
 DEPTH2 = 128
@@ -14,6 +12,7 @@ INPUT_UNIT = 16
 HIDDEN_UNIT = 256
 OUTPUT_UNIT = 4  # four actions could be taken in total
 EXPAND_SIZE = 2*4*DEPTH2*2 + 3*3*DEPTH2*2 + 4*3*DEPTH1*2
+tf.disable_v2_behavior()
 
 
 class Agent:
@@ -55,6 +54,40 @@ class Agent:
                tf.Variable(tf.truncated_normal([HIDDEN_UNIT, OUTPUT_UNIT], mean=0, stddev=0.01)), \
                tf.Variable(tf.truncated_normal([1, OUTPUT_UNIT], mean=0, stddev=0.01))
 
+    # find legal moves from the board
+    @staticmethod
+    def legal_moves(board):
+        legal_moves = list()
+        for i in range(4):
+            next_board, _ = game.controls[i](deepcopy(board))
+            if not np.array_equal(next_board, board):
+                legal_moves.append(i)
+        if len(legal_moves) == 0:
+            return 'lose', legal_moves
+        return 'not over', legal_moves
+
+    # perform a random move
+    @staticmethod
+    def random_move(next_board, legal_moves):
+        move = random.sample(legal_moves, 1)[0]
+        next_board, score = game.controls[move](next_board)
+        done = game.isgameover(next_board)
+        return done, move, next_board, score
+
+    # check the number of merges
+    @staticmethod
+    def check_merges(current_board, next_board):
+        return game.findemptyCell(next_board) - game.findemptyCell(current_board)
+
+    # update q value
+    @staticmethod
+    def update_label(labels, prev_max, next_max, merges, move):
+        labels[move] = next_max * 0.1
+        if next_max == prev_max:
+            labels[move] = 0
+        labels[move] += merges
+        return labels
+
     # model
     def model(self, dataset):
         # layer1
@@ -87,7 +120,7 @@ class Agent:
         shape21 = relu21.get_shape().as_list()
         shape22 = relu22.get_shape().as_list()
 
-        # expansion
+        # put all the conv layers into one set
         hidden1 = tf.reshape(relu1, [shape1[0], shape1[1]*shape1[2]*shape1[3]])
         hidden2 = tf.reshape(relu2, [shape2[0], shape2[1]*shape2[2]*shape2[3]])
 
@@ -109,35 +142,6 @@ class Agent:
         # return output
         return output
 
-    # find legal moves from the board
-    def find_legal_moves(self, board):
-        legal_moves = list()
-        for i in range(4):
-            next_board = deepcopy(board)
-            next_board,_ = game.controls[i](next_board)
-            if not np.array_equal(next_board,board):
-                legal_moves.append(i)
-        if (len(legal_moves) == 0):
-            return 'lose',legal_moves
-        return 'not over',legal_moves
-
-    # perform a random move
-    def make_random_move(self, next_board, legal_moves):
-        move = random.sample(legal_moves,1)[0]
-        next_board,score = game.controls[move](next_board)
-        done = game.isgameover(next_board)
-        return done, move, next_board, score
-
-    # check the # of merges
-    def check_merges(self, current_board, next_board):
-        return game.findemptyCell(next_board) - game.findemptyCell(current_board)
-
-    # update q value
-    def update_label(self, labels, prev_max, next_max, merges, move):
-        labels[move] = next_max * 0.1
-        if (next_max == prev_max): labels[move] = 0
-        labels[move] += merges
-        return labels
 
 
 
