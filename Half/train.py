@@ -12,9 +12,10 @@ import saver
 The train.py contains the code for training the weight of the model
 By training the weight, the score of each run will be recorded to see the change
 """
+
+# create an Agent object here
 a = Agent()
 def train(episode=100):  # number of episodes
-    # create an Agent object here
     # the following part of the program will modify the weights from each layer of the object a
     # the array to take the loss from each episode
     l_value = []
@@ -260,6 +261,6 @@ for w in weights:
     file = open(path + '\\' + w +'.csv','w')
     file.write('Sno,Weight\n')
     for i in range(flatten.shape[0]):
-        file.write(str(i) +',' +str(flatten[i][0])+'\n')
+        file.write(str(i) + ',' + str(flatten[i][0])+'\n')
     file.close()
     print(w + " done")
