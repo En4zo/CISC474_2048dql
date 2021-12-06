@@ -17,7 +17,7 @@ parameters = dict()
 scores = []
 play = 200
 
-path = r'F:\refresh\474project\Half\weights'
+path = r'/Users/enzuomou/Desktop/cisc474_final_group/CISC474_2048dql/Half/weights'
 parameters['conv1_layer1'] = np.array(pd.read_csv(path + r'/conv1_layer1_weights.csv')['Weight']).reshape((1, 2, 16, 128))
 parameters['conv1_layer2'] = np.array(pd.read_csv(path + r'/conv1_layer2_weights.csv')['Weight']).reshape((2, 1, 128, 128))
 parameters['conv2_layer1'] = np.array(pd.read_csv(path + r'/conv2_layer1_weights.csv')['Weight']).reshape((2, 1, 16, 128))

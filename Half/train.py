@@ -15,7 +15,7 @@ By training the weight, the score of each run will be recorded to see the change
 
 # create an Agent object here
 a = Agent()
-def train(episode=100):  # number of episodes
+def train(episode=20000):  # number of episodes
     # the following part of the program will modify the weights from each layer of the object a
     # the array to take the loss from each episode
     l_value = []
