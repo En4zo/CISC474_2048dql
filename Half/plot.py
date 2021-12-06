@@ -43,8 +43,6 @@ losses = readfile(path='/Users/enzuomou/Desktop/cisc474_final_group/CISC474_2048
 for i in range(len(losses)):
     episode1.append(num)
     num = num + 20
-
-episode = list(range(19999))
 plt.plot(episode1,losses)
 
 plt.xlabel("Episodes")
@@ -54,13 +52,16 @@ plt.savefig("/Users/enzuomou/Desktop/cisc474_final_group/CISC474_2048dql/Half/pl
 plt.show()
 
 
-# Plot total score vs episodes
+# Plot total score over episodes
 scores = slice(readfile(path='/Users/enzuomou/Desktop/cisc474_final_group/CISC474_2048dql/Half/weights/', name='scores', rounding=False),100)
-print(scores)
+print('----------')
+print(len(scores))
 episode2 = []
+num1 = 0
 for i in range(len(scores)):
-    episode2.append(num)
-    num = num + 100
+    episode2.append(num1)
+    num1 = num1 + 100
+print(episode2)
 plt.plot(episode2,scores)
 plt.xlabel("Episodes")
 plt.ylabel("Scores")
@@ -73,16 +74,16 @@ plt.show()
 play = slice(readfile(path='/Users/enzuomou/Desktop/cisc474_final_group/CISC474_2048dql/Half/played/', name='final_value_trained', rounding=False),1)
 
 episode3 = []
+num2 = 0
 for i in range(len(play)):
-    episode3.append(num)
-    num = num + 100
-x= []
+    episode3.append(num2)
+    num2 = num2 + 100
+meanx= []
 for i in range(len(play)):
-    mean = sum(play)/len(play)
-    print(mean)
-    x.append(mean)
+    meanValue = sum(play)/len(play)
+    meanx.append(meanValue)
 plt.plot(episode3,play,label = "play score")
-plt.plot(episode3,x,label = "mean play score")
+plt.plot(episode3,meanx,label = "mean play score")
 plt.xlabel("Episodes")
 plt.ylabel("Play_value")
 plt.title("Play_Value over 20000 episodes")
