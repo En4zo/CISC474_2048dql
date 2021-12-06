@@ -252,7 +252,7 @@ saver.save(path='./weight/', name='losses', lis=l_value)
 
 # save the path
 
-path = r'F:\refresh\474project\weight'
+path = r'./weight/'
 weights = ['conv1_layer1_weights', 'conv1_layer2_weights', 'conv2_layer1_weights', 'conv2_layer2_weights',
            'fc_layer1_weights', 'fc_layer1_biases', 'fc_layer2_weights', 'fc_layer2_biases']
 
