@@ -198,23 +198,6 @@ class GameGrid(Frame):
 
         if done == True:
             self.after(7, self.make_move)
-    #     else:
-    #         time.sleep(3)
-    #         self.init_matrix()
-    #         self.update_grid_cells()
-    #         self.after(7, self.make_move)
-    #
-    # def generate_next(self):
-    #     empty_cells = []
-    #     for i in range(len(mat)):
-    #         for j in range(len(mat)):
-    #             if(mat[i][j]==0):
-    #                 empty_cells.append((i,j))
-    #     if(len(empty_cells)==0):
-    #         return 0, false
-    #     index_pair = empty_cells[random.randint(0,len(empty_cells)-1)]
-    #     index = index_pair
-    #     self.matrix[index[0]][index[1]] = 2
 
         else:
             score = 0
@@ -233,6 +216,7 @@ class GameGrid(Frame):
                 saver.save(path='./played/', name='final_value_trained', lis=scores)
                 exit()
 
+                
 root = Tk()
-gamegrid = GameGrid()
+gg = GameGrid()
 root.mainloop()
