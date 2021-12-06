@@ -2,7 +2,6 @@ import numpy as np
 import random
 import math
 
-
 """
 The file contains all the methods needed to create an appropriate environment for of the game
 It has the functions to randomly create games, make legal moves and check the end state of each game

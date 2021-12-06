@@ -251,15 +251,15 @@ saver.save(path='./weight/', name='losses', lis=l_value)
 
 # save the path
 
-path = r'F:\refresh\474project\weight'
+path = r'F:\refresh\474project\Half\weights'
 weights = ['conv1_layer1_weights', 'conv1_layer2_weights', 'conv2_layer1_weights', 'conv2_layer2_weights',
            'fc_layer1_weights', 'fc_layer1_biases', 'fc_layer2_weights', 'fc_layer2_biases']
 
 for w in weights:
     flatten = result[w].reshape(-1, 1)
-    file = open(path + '\\' + w +'.csv','w')
+    file = open(path + '\\' + w + '.csv','w')
     file.write('Sno,Weight\n')
     for i in range(flatten.shape[0]):
-        file.write(str(i) +',' +str(flatten[i][0])+'\n')
+        file.write(str(i) + ',' + str(flatten[i][0])+'\n')
     file.close()
     print(w + " done")
