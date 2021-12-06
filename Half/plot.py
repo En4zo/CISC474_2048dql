@@ -75,7 +75,7 @@ episode3 = []
 num2 = 0
 for i in range(len(play)):
     episode3.append(num2)
-    num2 = num2 + 100
+    num2 = num2 + 1
 meanx= []
 for i in range(len(play)):
     meanValue = sum(play)/len(play)
