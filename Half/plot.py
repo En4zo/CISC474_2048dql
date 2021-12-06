@@ -54,14 +54,12 @@ plt.show()
 
 # Plot total score over episodes
 scores = slice(readfile(path='/Users/enzuomou/Desktop/cisc474_final_group/CISC474_2048dql/Half/weights/', name='scores', rounding=False),100)
-print('----------')
-print(len(scores))
+
 episode2 = []
 num1 = 0
 for i in range(len(scores)):
     episode2.append(num1)
     num1 = num1 + 100
-print(episode2)
 plt.plot(episode2,scores)
 plt.xlabel("Episodes")
 plt.ylabel("Scores")
